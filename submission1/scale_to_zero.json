@@ -1,0 +1,20 @@
+{
+  "branch": "dev",
+  "endpoint": "projects/meridian-retention/branches/dev/endpoints/primary",
+  "configuration": {
+    "suspend_timeout_duration": "86400s",
+    "autoscaling_limit_min_cu": 1.0,
+    "autoscaling_limit_max_cu": 1.0
+  },
+  "explanation": "Dev branch configured to scale to zero after idle period, costing ~$0 when unused. This makes development and forecasting branches essentially free when not in active use.",
+  "patch_command": "PATCH /api/2.0/postgres/projects/meridian-retention/branches/dev/endpoints/primary?update_mask=spec.settings",
+  "patch_payload": {
+    "spec": {
+      "settings": {
+        "suspend_timeout_duration": "300s",
+        "autoscaling_limit_min_cu": 0.25,
+        "autoscaling_limit_max_cu": 0.25
+      }
+    }
+  }
+}

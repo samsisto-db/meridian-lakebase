@@ -1,0 +1,81 @@
+# Databricks Asset Bundle: Meridian Lakebase Synced Tables
+# Defines the Delta → Lakebase sync as code (infrastructure-as-code)
+
+bundle:
+  name: meridian-lakebase-sync
+
+variables:
+  catalog:
+    default: sds_serverless_sandbox_ts_catalog
+  schema:
+    default: meridian_bank
+  lakebase_project:
+    default: meridian-retention
+  lakebase_branch:
+    default: projects/meridian-retention/branches/production
+
+resources:
+  synced_tables:
+    # Sync gold_customer_position → Lakebase
+    lb_customer_position:
+      source_table_full_name: ${var.catalog}.${var.schema}.gold_customer_position
+      synced_table_id: ${var.catalog}.${var.schema}.lb_customer_position
+      branch: ${var.lakebase_branch}
+      primary_key_columns:
+        - customer_id
+      scheduling_policy: SNAPSHOT
+      postgres_database: databricks_postgres
+      create_database_objects_if_missing: true
+
+    # Sync gold_open_atrisk → Lakebase
+    lb_open_atrisk:
+      source_table_full_name: ${var.catalog}.${var.schema}.gold_open_atrisk
+      synced_table_id: ${var.catalog}.${var.schema}.lb_open_atrisk
+      branch: ${var.lakebase_branch}
+      primary_key_columns:
+        - customer_id
+      scheduling_policy: SNAPSHOT
+      postgres_database: databricks_postgres
+      create_database_objects_if_missing: true
+
+    # Sync gold_nba_recommendations → Lakebase
+    lb_nba_recommendations:
+      source_table_full_name: ${var.catalog}.${var.schema}.gold_nba_recommendations
+      synced_table_id: ${var.catalog}.${var.schema}.lb_nba_recommendations
+      branch: ${var.lakebase_branch}
+      primary_key_columns:
+        - customer_id
+      scheduling_policy: SNAPSHOT
+      postgres_database: databricks_postgres
+      create_database_objects_if_missing: true
+
+  # Lakebase project configuration
+  lakebase_project:
+    meridian_retention:
+      project_id: meridian-retention
+      display_name: Meridian Retention
+      pg_version: 17
+      branches:
+        production:
+          is_default: true
+          endpoint_settings:
+            autoscaling_limit_min_cu: 1.0
+            autoscaling_limit_max_cu: 1.0
+            suspend_timeout_duration: 86400s  # 24h for production
+        dev:
+          parent_branch: production
+          no_expiry: true
+          endpoint_settings:
+            autoscaling_limit_min_cu: 0.25
+            autoscaling_limit_max_cu: 0.25
+            suspend_timeout_duration: 300s  # 5 min scale-to-zero for dev
+
+targets:
+  dev:
+    default: true
+    variables:
+      lakebase_branch: projects/meridian-retention/branches/dev
+
+  production:
+    variables:
+      lakebase_branch: projects/meridian-retention/branches/production

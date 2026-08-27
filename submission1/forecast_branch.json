@@ -1,0 +1,29 @@
+{
+  "branch_name": "forecast-rate-match",
+  "parent": "production",
+  "purpose": "What-if analysis: forecast impact of raising retention rate from 3.85% to 4.00%",
+  "lifecycle": "created \u2192 scenario executed \u2192 results captured \u2192 branch deleted (throwaway)",
+  "scenario": {
+    "hypothesis": "If we match 4.00% (15bps above competitor's 3.85%), we retain 15% more balance but net value drops 15% due to higher cost of funds.",
+    "mutation": "UPDATE lb_nba_recommendations SET recommended_rate_apy=0.04, predicted_retained_usd*=1.15, predicted_net_value_usd*=0.85 WHERE recommended_action='retention_offer'",
+    "comparison": [
+      {
+        "scenario": "3.85% Current Offer (production)",
+        "affected_customers": 287,
+        "total_predicted_retained_usd": 9895627,
+        "total_predicted_net_value_usd": 8595824,
+        "avg_offered_rate": 0.0385
+      },
+      {
+        "scenario": "4.00% Rate Match (forecast branch)",
+        "affected_customers": 287,
+        "total_predicted_retained_usd": 11379971,
+        "total_predicted_net_value_usd": 7306450,
+        "avg_offered_rate": 0.04
+      }
+    ],
+    "conclusion": "Raising to 4.00% retains $1.48M more in deposits (+15%) but reduces net value by $1.29M (-15%). The 3.85% match is the optimal trade-off."
+  },
+  "branch_deleted": true,
+  "scale_to_zero_note": "Throwaway branches cost nothing once deleted; while active, scale-to-zero ensures idle compute costs ~$0"
+}

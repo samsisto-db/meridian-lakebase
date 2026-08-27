@@ -1,0 +1,45 @@
+{
+  "table": "app.rm_actions",
+  "type": "writable (not synced \u2014 app's own operational state)",
+  "description": "RM actions table records retention offers, cross-sells, and outreach decisions. Distinct from read-only synced tables.",
+  "insert_statement": "INSERT INTO app.rm_actions (id, customer_id, action_type, offered_product_id, rate_apy, drafted_note, predicted_retained_usd, status, ...) VALUES (...)",
+  "update_statement": "UPDATE app.rm_actions SET status='approved', approved_by='marcus.bell@meridianbank.com', decided_at=NOW() WHERE customer_id='CUST-0000214'",
+  "select_query": "SELECT id, customer_id, action_type, offered_product_id, rate_apy, status, approved_by, created_at, decided_at FROM app.rm_actions ORDER BY created_at",
+  "row_count": 3,
+  "rows": [
+    {
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "customer_id": "CUST-0000087",
+      "action_type": "cross_sell",
+      "offered_product_id": "PROD-INV-3001",
+      "rate_apy": null,
+      "status": "proposed",
+      "approved_by": null,
+      "created_at": "2026-08-27T18:50:00.000Z",
+      "decided_at": null
+    },
+    {
+      "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+      "customer_id": "CUST-0000156",
+      "action_type": "rm_outreach",
+      "offered_product_id": null,
+      "rate_apy": null,
+      "status": "proposed",
+      "approved_by": null,
+      "created_at": "2026-08-27T18:50:00.000Z",
+      "decided_at": null
+    },
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "customer_id": "CUST-0000214",
+      "action_type": "retention_offer",
+      "offered_product_id": "PROD-DEP-2001",
+      "rate_apy": 0.0385,
+      "status": "approved",
+      "approved_by": "marcus.bell@meridianbank.com",
+      "created_at": "2026-08-27T18:50:00.000Z",
+      "decided_at": "2026-08-27T19:05:00.000Z"
+    }
+  ],
+  "evidence": "3 rows present: 2 proposed, 1 approved by EVP Marcus Bell. Table accepts INSERT/UPDATE writes from the app, independently of read-only synced mirrors."
+}

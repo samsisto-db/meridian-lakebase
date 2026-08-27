@@ -1,13 +1,51 @@
-Development Branch: dev
-Parent Branch: production (main)
-Lakebase Branch: projects/meridian-retention/branches/dev
-Lakebase Endpoint: ep-rapid-grass-d8cut0rr.database.us-east-2.cloud.databricks.com
+# Lakebase Branch Strategy — Meridian Retention
 
-Changes made on dev branch:
-1. Added generated tsvector column 'search_vector' to meridian_bank.products
-   - Combines product_name + description for full-text search
-   - Expression: to_tsvector('english', coalesce(product_name, '') || ' ' || coalesce(description, ''))
-2. Created GIN index 'idx_products_search' for fast full-text search
-3. Validated: query "wealth & advisory & affluent" returns PROD-INV-3001 with rank 0.336
+## Branch 1: dev (development iteration)
+  Name: dev
+  Parent: production
+  Lakebase Resource: projects/meridian-retention/branches/dev
+  Endpoint: ep-rapid-grass-d8cut0rr.database.us-east-2.cloud.databricks.com
+  Purpose: Schema development and iteration
+  Scale-to-zero: configured (5 min idle suspend)
 
-Promotion: dev branch merged to main via git merge --no-ff, schema change applied to production Lakebase branch.
+  Changes made on dev:
+  1. Added generated tsvector column 'search_vector' to meridian_bank.products
+     - Combines product_name + description for full-text search
+     - GENERATED ALWAYS AS (to_tsvector('english', coalesce(product_name,'') || ' ' || coalesce(description,''))) STORED
+  2. Created GIN index 'idx_products_search' for fast full-text search
+  3. Validated on dev: "wealth & advisory & affluent" → PROD-INV-3001 (rank=0.336)
+  4. Promoted: merged dev → main in git, applied DDL to production Lakebase branch
+
+  Creation command:
+  POST /api/2.0/postgres/projects/meridian-retention/branches?branch_id=dev
+  {"spec": {"parent_branch": "projects/meridian-retention/branches/production", "no_expiry": true}}
+
+## Branch 2: forecast-rate-match (throwaway forecasting)
+  Name: forecast-rate-match
+  Parent: production
+  Purpose: What-if rate sensitivity analysis (throwaway — deleted after use)
+  Lifecycle: created → scenario executed → results captured → deleted
+
+  Scenario: "What if we raise the retention offer from 3.85% to 4.00%?"
+  - Mutated lb_nba_recommendations on the forecast branch (safe — isolated from production)
+  - Compared results:
+    * 3.85% (production): predicted retained $9.9M, net value $8.6M
+    * 4.00% (forecast): predicted retained $11.4M (+15%), net value $7.3M (-15%)
+  - Conclusion: 3.85% is the optimal trade-off; 4.00% retains more but costs too much
+  - Branch deleted after analysis (zero ongoing cost)
+
+  Creation command:
+  POST /api/2.0/postgres/projects/meridian-retention/branches?branch_id=forecast-rate-match
+  {"spec": {"parent_branch": "projects/meridian-retention/branches/production", "no_expiry": true}}
+
+  Deletion command:
+  DELETE /api/2.0/postgres/projects/meridian-retention/branches/forecast-rate-match
+
+## Scale-to-Zero Configuration
+  Dev branch: suspend_timeout_duration=300s (5 min), min_cu=0.25
+  Forecast branches: deleted after use (cost = $0 once discarded)
+  Production: suspend_timeout_duration=86400s (24h, warm for app traffic)
+  
+  Configuration API:
+  PATCH /api/2.0/postgres/.../endpoints/primary?update_mask=spec.settings
+  {"spec": {"settings": {"suspend_timeout_duration": "300s", "autoscaling_limit_min_cu": 0.25, "autoscaling_limit_max_cu": 0.25}}}
