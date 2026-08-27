@@ -1,9 +1,10 @@
 # Git History Export
 # Repository: https://github.com/samsisto-db/meridian-lakebase
-# Generated: 2026-08-27T19:10:00Z
+# Generated: 2026-08-27T19:30:00Z
 # Command: git log --graph --oneline --decorate --all
 
-* 534f2e6 (HEAD -> main, origin/main) Add submission1 artifacts: all Build 1 evidence files
+* 408fc6b (HEAD -> main, origin/main) fix: address scoring gaps — schema model, IaC, branching, execution evidence
+* 534f2e6 Add submission1 artifacts: all Build 1 evidence files
 *   8c2675d Merge branch 'dev': promote search_vector schema change to production
 |\  
 | * df7e762 (origin/dev, dev) feat: add full-text search vector on products table
