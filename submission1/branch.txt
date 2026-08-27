@@ -1,0 +1,13 @@
+Development Branch: dev
+Parent Branch: production (main)
+Lakebase Branch: projects/meridian-retention/branches/dev
+Lakebase Endpoint: ep-rapid-grass-d8cut0rr.database.us-east-2.cloud.databricks.com
+
+Changes made on dev branch:
+1. Added generated tsvector column 'search_vector' to meridian_bank.products
+   - Combines product_name + description for full-text search
+   - Expression: to_tsvector('english', coalesce(product_name, '') || ' ' || coalesce(description, ''))
+2. Created GIN index 'idx_products_search' for fast full-text search
+3. Validated: query "wealth & advisory & affluent" returns PROD-INV-3001 with rank 0.336
+
+Promotion: dev branch merged to main via git merge --no-ff, schema change applied to production Lakebase branch.

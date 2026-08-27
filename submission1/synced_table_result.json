@@ -1,0 +1,54 @@
+{
+  "query": "synced_table.sql",
+  "source_uc_table": "sds_serverless_sandbox_ts_catalog.meridian_bank.gold_customer_position",
+  "lakebase_table": "meridian_bank.lb_customer_position",
+  "row_count": 5,
+  "total_synced_rows": 40000,
+  "rows": [
+    {
+      "customer_id": "CUST-0004138",
+      "tier": "affluent",
+      "risk_band": "critical",
+      "total_balance_usd": 1275663.09,
+      "balance_at_risk_usd": 1245716.44,
+      "revenue_at_risk_usd": 31902.91,
+      "attrition_risk_score": 0.817
+    },
+    {
+      "customer_id": "CUST-0007505",
+      "tier": "affluent",
+      "risk_band": "critical",
+      "total_balance_usd": 1227137.74,
+      "balance_at_risk_usd": 1224857.15,
+      "revenue_at_risk_usd": 31141.43,
+      "attrition_risk_score": 0.95
+    },
+    {
+      "customer_id": "CUST-0006136",
+      "tier": "affluent",
+      "risk_band": "critical",
+      "total_balance_usd": 1178486.53,
+      "balance_at_risk_usd": 1174292.51,
+      "revenue_at_risk_usd": 30077.31,
+      "attrition_risk_score": 0.95
+    },
+    {
+      "customer_id": "CUST-0001326",
+      "tier": "affluent",
+      "risk_band": "critical",
+      "total_balance_usd": 1226154.2,
+      "balance_at_risk_usd": 1180946.08,
+      "revenue_at_risk_usd": 30043.65,
+      "attrition_risk_score": 0.838
+    },
+    {
+      "customer_id": "CUST-0005063",
+      "tier": "affluent",
+      "risk_band": "critical",
+      "total_balance_usd": 1209662.12,
+      "balance_at_risk_usd": 1183570.01,
+      "revenue_at_risk_usd": 29909.25,
+      "attrition_risk_score": 0.95
+    }
+  ]
+}

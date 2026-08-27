@@ -1,0 +1,10 @@
+Git Commit: df7e762
+Branch: dev
+Message: "feat: add full-text search vector on products table"
+
+Co-authored-by: Genie Code <assistant@databricks.com>
+
+Promotion Evidence:
+- Git merge commit: 8c2675d "Merge branch 'dev': promote search_vector schema change to production"
+- Schema change applied to Lakebase production branch after merge
+- Validation passed on both dev and production branches

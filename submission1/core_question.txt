@@ -1,0 +1,6 @@
+Business Question:
+"Which critical-risk customers have the highest revenue at stake, and what is the model's recommended next best action for each?"
+
+Context: A competitor launched a 3.85% savings-rate promotion ~3 weeks ago. Our highest-value 
+customers with maturing CDs are at attrition risk. The relationship managers need to know which 
+customers to prioritize and what action to take (retention offer, cross-sell, or RM outreach).

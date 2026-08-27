@@ -1,0 +1,12 @@
+{
+  "query": "SELECT product_id, product_name, ts_rank(search_vector, query) AS rank FROM meridian_bank.products, to_tsquery('english', 'wealth & advisory & affluent') query WHERE search_vector @@ query ORDER BY rank DESC",
+  "branch": "dev",
+  "result": [
+    {
+      "product_id": "PROD-INV-3001",
+      "product_name": "Wealth Advisory Account",
+      "rank": 0.33632627
+    }
+  ],
+  "status": "PASSED \u2014 correct product returned with expected relevance score"
+}

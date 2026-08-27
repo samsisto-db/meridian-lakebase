@@ -1,0 +1,78 @@
+{
+  "uc_history_table": "sds_serverless_sandbox_ts_catalog.meridian_bank.lb_rm_actions_history",
+  "source_lakebase_table": "app.rm_actions",
+  "scd_type_2_columns": [
+    "_pg_change_type",
+    "_timestamp",
+    "_pg_lsn",
+    "_pg_xid"
+  ],
+  "change_types_present": [
+    "INSERT",
+    "UPDATE_BEFORE",
+    "UPDATE_AFTER"
+  ],
+  "row_count": 5,
+  "rows": [
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "customer_id": "CUST-0000214",
+      "action_type": "retention_offer",
+      "status": "proposed",
+      "approved_by": null,
+      "decided_at": null,
+      "_pg_change_type": "INSERT",
+      "_timestamp": "2026-08-27T18:50:01Z",
+      "_pg_lsn": "0/1A2B3C4",
+      "_pg_xid": 1001
+    },
+    {
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "customer_id": "CUST-0000087",
+      "action_type": "cross_sell",
+      "status": "proposed",
+      "approved_by": null,
+      "decided_at": null,
+      "_pg_change_type": "INSERT",
+      "_timestamp": "2026-08-27T18:50:01Z",
+      "_pg_lsn": "0/1A2B3C5",
+      "_pg_xid": 1001
+    },
+    {
+      "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+      "customer_id": "CUST-0000156",
+      "action_type": "rm_outreach",
+      "status": "proposed",
+      "approved_by": null,
+      "decided_at": null,
+      "_pg_change_type": "INSERT",
+      "_timestamp": "2026-08-27T18:50:01Z",
+      "_pg_lsn": "0/1A2B3C6",
+      "_pg_xid": 1001
+    },
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "customer_id": "CUST-0000214",
+      "action_type": "retention_offer",
+      "status": "proposed",
+      "approved_by": null,
+      "decided_at": null,
+      "_pg_change_type": "UPDATE_BEFORE",
+      "_timestamp": "2026-08-27T19:05:01Z",
+      "_pg_lsn": "0/2D3E4F5",
+      "_pg_xid": 1042
+    },
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "customer_id": "CUST-0000214",
+      "action_type": "retention_offer",
+      "status": "approved",
+      "approved_by": "marcus.bell@meridianbank.com",
+      "decided_at": "2026-08-27T19:05:00Z",
+      "_pg_change_type": "UPDATE_AFTER",
+      "_timestamp": "2026-08-27T19:05:01Z",
+      "_pg_lsn": "0/2D3E4F5",
+      "_pg_xid": 1042
+    }
+  ]
+}

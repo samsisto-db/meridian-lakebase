@@ -1,0 +1,10 @@
+# Git History Export
+# Repository: https://github.com/samsisto-db/meridian-lakebase
+# Generated: 2026-08-27T19:10:00Z
+# Command: git log --graph --oneline --decorate --all
+
+*   8c2675d (HEAD -> main, origin/main) Merge branch 'dev': promote search_vector schema change to production
+|\  
+| * df7e762 (origin/dev, dev) feat: add full-text search vector on products table
+|/  
+* 39c1558 Initial schema: app.* tables for Meridian Customer Retention

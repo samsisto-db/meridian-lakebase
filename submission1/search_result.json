@@ -1,0 +1,16 @@
+{
+  "natural_language_query": "wealth advisory affluent",
+  "method": "Postgres GIN-indexed tsvector full-text search (websearch_to_tsquery)",
+  "table": "meridian_bank.products",
+  "search_column": "search_vector (generated from product_name + description)",
+  "results": [
+    {
+      "product_id": "PROD-INV-3001",
+      "product_name": "Wealth Advisory Account",
+      "product_type": "Advisory",
+      "segment": "affluent",
+      "rate_apy": 0.0,
+      "relevance_score": 0.33632627
+    }
+  ]
+}

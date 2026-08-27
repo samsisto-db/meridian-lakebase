@@ -1,0 +1,8 @@
+Natural Language Query: "wealth advisory affluent"
+
+SQL (using Postgres full-text search with websearch_to_tsquery):
+SELECT product_id, product_name, product_type, segment, rate_apy,
+       ts_rank(search_vector, websearch_to_tsquery('english', 'wealth advisory affluent')) AS relevance_score
+FROM meridian_bank.products
+WHERE search_vector @@ websearch_to_tsquery('english', 'wealth advisory affluent')
+ORDER BY relevance_score DESC;
